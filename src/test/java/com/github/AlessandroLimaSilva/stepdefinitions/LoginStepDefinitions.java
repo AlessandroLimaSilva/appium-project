@@ -14,8 +14,8 @@ public class LoginStepDefinitions {
     @Steps
     LoginSteps loginSteps;
 
-    @Given("^que o usuario informe")
-    public void que_o_usuario_informe_login_por_email()
+    @Given("^o usuario informe tipo de login")
+    public void loginPorEmail()
     {
         loginSteps.clicarLoginPorEmail();
     }
@@ -27,15 +27,10 @@ public class LoginStepDefinitions {
         loginSteps.preencherPasswordField();
     }
 
-    @When("^clica em log in$")
+    @When("^clica em login$")
     public void clicarEmLogIn()
     {
         loginSteps.clicarLogInButton();
     }
 
-    @Then("^vai se foder serenity$")
-    public void vaiSeFoderSerenity() {
-        JOptionPane.showMessageDialog(null,"Serenity Filho da puta");
-        loginSteps.clicarLogInButton();
-    }
 }

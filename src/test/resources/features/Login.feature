@@ -1,10 +1,9 @@
-@Login_por_email
-
+@Login @automatizado
 Feature: Login no spotify
 
   @automatizado @realizar_login_por_email
   Scenario: Realizar Login por email
-    Given clica em log in
-    And que o usuario informe
+    Given clica em login
+    And o usuario informe tipo de login
     When insira os dados de login
-    Then clica em log in
+    Then clica em login

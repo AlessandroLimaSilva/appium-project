@@ -16,18 +16,23 @@ import static java.time.Duration.ofSeconds;
 
 public class PageBase extends PageObject{
 
-
     public WebDriver driver;
     public WebDriverWait wait;
+    public long timeOutDefault;
+    public long implicitTimeOutDefault;
 
-    public PageBase() {
 
+    public PageBase(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        this.timeOutDefault = getWaitForTimeout().toMillis();
+        this.implicitTimeOutDefault = getImplicitWaitTimeout().getSeconds();
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(getWaitForTimeout().getSeconds()));
     }
 
     public void waitForElement(WebElement element){
         wait.until(ExpectedConditions.visibilityOf(element));
         wait.until(ExpectedConditions.elementToBeClickable(element));
-        wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     public void click(WebElement element)

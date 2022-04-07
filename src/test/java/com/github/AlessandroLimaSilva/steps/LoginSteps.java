@@ -33,15 +33,14 @@ public class LoginSteps extends ScenarioSteps {
     @Step("Clicar no botão Log in")
     public void clicarLogInButton()
     {
-        //JOptionPane.showMessageDialog(null,"Mais uma merda");
         loginPage.clickLogInButton();
     }
 
-    /*@Step("Clicar no botão none of the above")
+    @Step("Clicar no botão none of the above")
     public void clicarNoneOfTheAboveButton()
     {
         loginPage.clicarNoneOfTheAboveButton();
-    }*/
+    }
 
     @Step("Clicar no botão sign up free")
     public void clicarSignUpFreeButton()

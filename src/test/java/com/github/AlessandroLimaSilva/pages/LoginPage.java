@@ -1,56 +1,59 @@
 package com.github.AlessandroLimaSilva.pages;
 
+import com.github.AlessandroLimaSilva.bases.PageBase;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.WebDriver;
 
-public class LoginPage extends PageObject {
+public class LoginPage extends PageBase {
+
+    PageBase pageBase;
 
     @AndroidFindBy(xpath = "//android.widget.Button[@text='NONE OF THE ABOVE']")
-    private WebElementFacade noneOfTheAboveButton;
+    public WebElementFacade noneOfTheAboveButton;
     @AndroidFindBy(xpath = "//android.widget.EditText[1]")
-    private WebElementFacade whatsYourEmailEditText;
+    public WebElementFacade whatsYourEmailEditText;
     @AndroidFindBy(xpath = "//android.widget.EditText[2]")
-    private WebElementFacade whatsYourPasswordEditText;
+    public WebElementFacade whatsYourPasswordEditText;
     @AndroidFindBy(xpath = "//android.widget.Button[@text='Log in']")
-    private WebElementFacade logInButton;
+    public WebElementFacade logInButton;
     @AndroidFindBy(xpath = "//android.widget.Button[@text='Sign Up Free']")
-    private WebElementFacade signUpFreeButton;
+    public WebElementFacade signUpFreeButton;
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Email']")
-    private WebElementFacade emailButton;
+    public WebElementFacade emailButton;
 
-    public LoginPage(){
-        super();
+    public LoginPage(WebDriver driver){
+        super(driver);
     }
 
     public void clicarNoneOfTheAboveButton()
     {
-        noneOfTheAboveButton.click();
+        pageBase.click(noneOfTheAboveButton);
     }
 
     public void preencherWhatsYourEmailTextField(String email)
     {
-        whatsYourEmailEditText.sendKeys(email);
+        pageBase.sendKeys(whatsYourEmailEditText,email);
     }
 
     public void preencherWhatsYourPasswordEditText(String password)
     {
-
-        whatsYourPasswordEditText.sendKeys(password);
+        pageBase.sendKeys(whatsYourPasswordEditText,password);
     }
 
     public void clickLogInButton()
     {
-        logInButton.click();
+        pageBase.click(logInButton);
     }
 
     public void clickSignUpFreeButton()
     {
-        signUpFreeButton.click();
+        pageBase.click(signUpFreeButton);
     }
 
     public void clickEmailButton()
     {
-        emailButton.click();
+        pageBase.click(emailButton);
     }
 }
