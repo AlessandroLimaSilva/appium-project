@@ -7,8 +7,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(features = "src/test/resources/features/Login.feature",
-        glue = {"classpath:com.github.AlessandroLimaSilva.stepdefinitions",
-                "classpath:com.github.AlessandroLimaSilva.test"},
+        glue = {"classpath:com.github.AlessandroLimaSilva.stepdefinitions"},
         tags = "@automatizado")
 
 public class LoginTest {

@@ -2,6 +2,7 @@ package com.github.AlessandroLimaSilva.bases;
 
 
 import com.google.common.collect.ImmutableMap;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import org.apache.commons.lang3.time.StopWatch;
 import org.openqa.selenium.*;
@@ -32,6 +33,7 @@ public class PageBase extends PageObject{
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(getWaitForTimeout().getSeconds()));
         this.javascriptExecutor = (JavascriptExecutor) driver;
     }
+
 
     //region Sincronização
     protected void waitLoadingScreen(WebElement element){
