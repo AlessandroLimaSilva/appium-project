@@ -1,14 +1,13 @@
 package com.github.AlessandroLimaSilva.pages;
 
-import com.github.AlessandroLimaSilva.bases.PageBase;
+import com.github.AlessandroLimaSilva.bases.BasePage;
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage extends PageBase {
+public class LoginPage extends BasePage {
 
-    PageBase pageBase;
+    BasePage basePage;
 
     @AndroidFindBy(xpath = "//android.widget.Button[@text='NONE OF THE ABOVE']")
     public WebElementFacade noneOfTheAboveButton;
@@ -29,31 +28,31 @@ public class LoginPage extends PageBase {
 
     public void clicarNoneOfTheAboveButton()
     {
-        pageBase.click(noneOfTheAboveButton);
+        basePage.click(noneOfTheAboveButton);
     }
 
     public void preencherWhatsYourEmailTextField(String email)
     {
-        pageBase.sendKeys(whatsYourEmailEditText,email);
+        basePage.sendKeys(whatsYourEmailEditText,email);
     }
 
     public void preencherWhatsYourPasswordEditText(String password)
     {
-        pageBase.sendKeys(whatsYourPasswordEditText,password);
+        basePage.sendKeys(whatsYourPasswordEditText,password);
     }
 
     public void clickLogInButton()
     {
-        pageBase.click(logInButton);
+        basePage.click(logInButton);
     }
 
     public void clickSignUpFreeButton()
     {
-        pageBase.click(signUpFreeButton);
+        basePage.click(signUpFreeButton);
     }
 
     public void clickEmailButton()
     {
-        pageBase.click(emailButton);
+        basePage.click(emailButton);
     }
 }

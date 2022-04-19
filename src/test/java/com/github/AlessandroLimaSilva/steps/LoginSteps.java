@@ -2,10 +2,7 @@ package com.github.AlessandroLimaSilva.steps;
 
 import com.github.AlessandroLimaSilva.pages.LoginPage;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.reports.adaptors.specflow.ScenarioStep;
 import net.thucydides.core.steps.ScenarioSteps;
-
-import javax.swing.*;
 
 public class LoginSteps extends ScenarioSteps {
     LoginPage loginPage;
