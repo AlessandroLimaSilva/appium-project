@@ -1,41 +1,19 @@
 package com.github.AlessandroLimaSilva.bases;
 
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
 import net.serenitybdd.core.pages.PageObject;
-import net.thucydides.core.util.EnvironmentVariables;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
+import org.apache.commons.lang3.time.StopWatch;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.apache.commons.lang3.time.StopWatch;
+
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-
-
-
-
-import java.net.MalformedURLException;
-import java.time.Duration;
-
-import static java.time.Duration.ofSeconds;
 
 public class PageBase extends PageObject{
 
@@ -182,32 +160,27 @@ public class PageBase extends PageObject{
 
     protected String getText(WebElement element){
         waitForElement(element);
-        String text = element.getText();
-        return text;
+        return element.getText();
     }
 
     protected String getValue(WebElement element){
         waitForElement(element);
-        String text = element.getAttribute("value");
-        return text;
+        return element.getAttribute("value");
     }
 
     protected boolean returnIfElementIsDisplayed(WebElement element){
         waitForElement(element);
-        boolean result = element.isDisplayed();
-        return result;
+        return element.isDisplayed();
     }
 
     protected boolean returnIfElementIsEnabled(WebElement element){
         waitForElement(element);
-        boolean result = element.isEnabled();
-        return result;
+        return element.isEnabled();
     }
 
     protected boolean returnIfElementIsSelected(WebElement element){
         waitForElement(element);
-        boolean result = element.isSelected();
-        return result;
+        return element.isSelected();
     }
 
 
