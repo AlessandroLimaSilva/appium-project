@@ -14,7 +14,7 @@ import java.time.Duration;
 
 import static java.time.Duration.ofSeconds;
 
-public class BasePage extends PageObject{
+public class PageBase extends PageObject{
 
     public WebDriver driver;
     public WebDriverWait wait;
@@ -22,7 +22,7 @@ public class BasePage extends PageObject{
     public long implicitTimeOutDefault;
 
 
-    public BasePage(WebDriver driver) {
+    public PageBase(WebDriver driver) {
         super(driver);
         this.driver = driver;
         this.timeOutDefault = getWaitForTimeout().toMillis();

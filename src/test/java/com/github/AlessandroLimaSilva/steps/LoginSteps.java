@@ -1,11 +1,11 @@
 package com.github.AlessandroLimaSilva.steps;
 
-import com.github.AlessandroLimaSilva.pages.LoginPage;
+import com.github.AlessandroLimaSilva.pages.LoginPageBase;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
 public class LoginSteps extends ScenarioSteps {
-    LoginPage loginPage;
+    LoginPageBase loginPage;
 
     @Step("Clicar no botão login por email")
     public void clicarLoginPorEmail()
