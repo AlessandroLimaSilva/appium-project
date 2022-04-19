@@ -2,6 +2,7 @@ package com.github.AlessandroLimaSilva.bases;
 
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableMap;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.util.EnvironmentVariables;
 import org.openqa.selenium.WebDriver;
@@ -38,10 +39,11 @@ import static java.time.Duration.ofSeconds;
 
 public class PageBase extends PageObject{
 
-    public WebDriver driver;
-    public WebDriverWait wait;
-    public long timeOutDefault;
-    public long implicitTimeOutDefault;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+    protected long timeOutDefault;
+    protected long implicitTimeOutDefault;
+    protected JavascriptExecutor javascriptExecutor;
 
 
     public PageBase(WebDriver driver) {
@@ -50,6 +52,7 @@ public class PageBase extends PageObject{
         this.timeOutDefault = getWaitForTimeout().toMillis();
         this.implicitTimeOutDefault = getImplicitWaitTimeout().getSeconds();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(getWaitForTimeout().getSeconds()));
+        this.javascriptExecutor = (JavascriptExecutor) driver;
     }
 
     //region Sincronização
@@ -67,7 +70,7 @@ public class PageBase extends PageObject{
                     return;
                 }
 
-            } while (timeOut.getTime() <= implicitTimeOutDefault);
+            } while (timeOut.getTime() <= timeOutDefault);
         }
         catch (WebDriverException e)
         {
@@ -109,7 +112,7 @@ public class PageBase extends PageObject{
         WebDriverException possibleWebDriverException = null;
         StopWatch timeOut = new StopWatch();
         timeOut.start();
-        while (timeOut.getTime() <= implicitTimeOutDefault)
+        while (timeOut.getTime() <= timeOutDefault)
         {
             //WebElement element = null;
             try
@@ -207,45 +210,68 @@ public class PageBase extends PageObject{
         return result;
     }
 
-    /*
-    //Refatorar Metodos novos padroes de implementações de touch e actions
-    protected void scrollUsingTouchActions_ByElements(WebElement startElement, WebElement endElement, int seconds) {
-        TouchAction actions = new TouchAction(driver);
-        actions.press(PointOption.point(startElement.getLocation().x,startElement.getLocation().y))
-                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(seconds)))
-                .moveTo(PointOption.point(endElement.getLocation().x,endElement.getLocation().y)).release().perform();
+
+    //Refatorado
+    protected void scrollUsingTouchActions_ByElements(WebElement startElement, WebElement endElement) {
+        waitForElement(startElement);
+        waitForElement(endElement);
+        javascriptExecutor.executeScript("mobile: dragGesture",
+                ImmutableMap.of("elementId",((RemoteWebElement)startElement).getId()),
+                "elementId",((RemoteWebElement) endElement ).getId());
     }
 
-    protected void scrollUsingTouchActions(int startX,int startY, int endX, int endY, int seconds) {
-        TouchAction actions = new TouchAction(driver);
-        actions.press(PointOption.point(startX,startY))
-                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(seconds)))
-                .moveTo(PointOption.point(endX,endY)).release().perform();
+    protected void scrollTimeUsingTouchActions_ByElements(WebElement startElement, WebElement endElement, int seconds) {
+        waitForElement(startElement);
+        waitForElement(endElement);
+        javascriptExecutor.executeScript("mobile: dragGesture",
+                ImmutableMap.of("elementId",((RemoteWebElement)startElement).getId()),
+                "elementId",((RemoteWebElement) endElement ).getId(), seconds);
+    }
 
-    }*/
+    protected void scrollUsingTouchActions(int startX, int startY, int endX, int endY) {
+        javascriptExecutor.executeScript("mobile: dragGesture",
+                ImmutableMap.of(startX , startY, endX, endY));
+    }
 
+    //Refatorado
     //Refatorar Metodos novos padroes de implementações de touch e actions
     protected void longPress(WebElement element) {
         waitForElement(element);
-        TouchActions action = new TouchActions(driver);
-        action.longPress(element);
-        action.perform();
-
+        javascriptExecutor.executeScript("mobile: longClickGesture", ImmutableMap.of("elementId",((RemoteWebElement)element).getId()));
     }
 
+
+    //Novo metodo adicionado
+    protected void longPressWaitPressTime(WebElement element, int time) {
+        waitForElement(element);
+        javascriptExecutor.executeScript("mobile: longClickGesture", ImmutableMap.of("elementId",((RemoteWebElement)element).getId()), time);
+    }
+
+    //Refatorado
     protected void tap(WebElement element){
         waitForElement(element);
-        TouchActions action = new TouchActions(driver);
-        action.singleTap(element);
-        action.perform();
+        javascriptExecutor.executeScript("mobile: clickGesture",
+                ImmutableMap.of("elementId",((RemoteWebElement) element ).getId()));
     }
+
+    //Novo metodo adicionado
+    protected void tapCoordinates(int x, int y){
+        javascriptExecutor.executeScript("mobile: clickGesture", ImmutableMap.of(x , y));
+    }
+
+    //Refatorado
     protected void doubleTap(WebElement element){
         waitForElement(element);
-        TouchActions action = new TouchActions(driver);
-        action.doubleTap(element);
-        action.perform();
+        javascriptExecutor.executeScript("mobile: doubleClickGesture",
+                ImmutableMap.of("elementId",((RemoteWebElement) element ).getId()));
 
     }
+
+    //Novo metodo adicionado
+    protected void doubleTapCoordinates(int x, int y){
+        javascriptExecutor.executeScript("mobile: doubleClickGesture", ImmutableMap.of(x , y));
+    }
+
     //Refatorar Metodos novos padroes de implementações de touch e actions
     //endregion Mobile Element Methods
 
@@ -373,45 +399,39 @@ public class PageBase extends PageObject{
 
     //region General Methods
     protected void scrolling(String direction){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         HashMap<String, String> scrollObject = new HashMap<String, String>();
         scrollObject.put("direction", direction);
-        js.executeScript("mobile: scroll", scrollObject);
+        javascriptExecutor.executeScript("mobile: scroll", scrollObject);
     }
 
-    /*
+
     //Refatorar metodo nova implementação de scroll
     protected  void scrollingEntire(){
-        WebElement element = (WebElement) driver.findElementByClassName("android.widget.ListView");
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-        HashMap<String, String> scrollObject = new HashMap<String, String>();
-        scrollObject.put("direction", "down");
-        scrollObject.put("element", ((RemoteWebElement) element).getId());
-        scrollObject.put("text", "AUDI");
-        js.executeScript("mobile: scrollTo", scrollObject);
+        javascriptExecutor. executeScript ( "mobile: scrollGesture" ,
+                ImmutableMap.of (
+                "direction" , "down" ,
+                "percent" , 1.0
+        ) );
     }
 
     //
     public void topToBottonSwipe() {
         Dimension dim= driver.manage().window().getSize();
-        int height=(int) dim.getHeight();
-        int width=(int) dim.getWidth();
+        int height = dim.getHeight();
+        int width =  dim.getWidth();
         int x= width/2;
         int startY=(int) (height*0.80);
         int endY=(int) (height*0.20);
 
-        TouchAction actions = new TouchAction(driver);
-        actions.press(PointOption.point(x,startY))
-                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
-                .moveTo(PointOption.point(x,endY)).release().perform();
+        javascriptExecutor.executeScript("mobile: dragGesture",
+                ImmutableMap.of(x , startY, x, endY));
     }
 
     //Função para realizar scroll somente em Android
+    /*
     protected WebElement scrollToElementAndroid(String string){
         return ((AndroidDriver<WebElement>) driver).findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\""+string+"\").instance(0))");
-    }
-
+    }*/
     //endregion General Methods
-    */
 
 }
