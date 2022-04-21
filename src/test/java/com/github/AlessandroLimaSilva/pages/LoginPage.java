@@ -2,57 +2,38 @@ package com.github.AlessandroLimaSilva.pages;
 
 import com.github.AlessandroLimaSilva.bases.PageBase;
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebDriver;
-
+import org.openqa.selenium.WebElement;
 
 
 public class LoginPage extends PageBase {
 
-    @AndroidFindBy(xpath = "//android.widget.Button[@text='NONE OF THE ABOVE']")
-    public WebElementFacade noneOfTheAboveButton;
-    @AndroidFindBy(xpath = "//android.widget.EditText[1]")
-    public WebElementFacade whatsYourEmailEditText;
-    @AndroidFindBy(xpath = "//android.widget.EditText[2]")
-    public WebElementFacade whatsYourPasswordEditText;
-    @AndroidFindBy(xpath = "//android.widget.Button[@text='Log in']")
-    public WebElementFacade logInButton;
-    @AndroidFindBy(xpath = "//android.widget.Button[@text='Sign Up Free']")
-    public WebElementFacade signUpFreeButton;
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Email']")
-    public WebElementFacade emailButton;
+    @AndroidFindBy(xpath = "//android.view.View[2]/android.widget.EditText[1]")
+    protected WebElement emailTextField;
+
+    @AndroidFindBy(xpath = "//android.view.View[2]/android.widget.EditText[2]")
+    protected WebElement senhaTextField;
+
+    @AndroidFindBy(xpath = "//*[@class='android.widget.Button' and @text='ENTRAR']")
+    protected WebElement entrarButton;
 
     public LoginPage(WebDriver driver){
         super(driver);
     }
 
-    public void clicarNoneOfTheAboveButton()
-    {
-        click(noneOfTheAboveButton);
+    public void preencherEmailTextFieldPage(String email) throws InterruptedException {
+
+        waitForElement(emailTextField);
+        sendKeys(emailTextField,email);
     }
 
-    public void preencherWhatsYourEmailTextField(String email)
-    {
-        sendKeys(whatsYourEmailEditText,email);
+    public void preencherSenhaTextFieldPage(String senha){
+        sendKeys(senhaTextField,senha);
     }
 
-    public void preencherWhatsYourPasswordEditText(String password)
-    {
-        sendKeys(whatsYourPasswordEditText,password);
+    public void clicarEntrarButtonPage(){
+        waitForElement(entrarButton);
+        click(entrarButton);
     }
 
-    public void clickLogInButton()
-    {
-        click(logInButton);
-    }
-
-    public void clickSignUpFreeButton()
-    {
-        click(signUpFreeButton);
-    }
-
-    public void clickEmailButton()
-    {
-        click(emailButton);
-    }
 }

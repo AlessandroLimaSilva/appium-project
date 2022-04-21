@@ -2,7 +2,6 @@ package com.github.AlessandroLimaSilva.bases;
 
 
 import com.google.common.collect.ImmutableMap;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import org.apache.commons.lang3.time.StopWatch;
 import org.openqa.selenium.*;
@@ -230,7 +229,7 @@ public class PageBase extends PageObject{
     }
 
     //Novo metodo adicionado
-    protected void tapCoordinates(int x, int y){
+    protected void tapCoordinates(String x, String y){
         javascriptExecutor.executeScript("mobile: clickGesture", ImmutableMap.of(x , y));
     }
 

@@ -1,36 +1,38 @@
 package com.github.AlessandroLimaSilva.stepdefinitions;
 
 import com.github.AlessandroLimaSilva.steps.LoginSteps;
-import io.cucumber.java.en.And;
+import com.github.AlessandroLimaSilva.steps.MainSteps;
+import com.github.AlessandroLimaSilva.steps.MeuPerfilSteps;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
-
-import javax.swing.*;
+import org.junit.Assert;
 
 public class LoginStepDefinitions {
 
     @Steps
     LoginSteps loginSteps;
+    @Steps
+    MainSteps mainSteps;
+    @Steps
+    MeuPerfilSteps meuPerfilSteps;
 
-    @Given("^o usuario informe tipo de login")
-    public void loginPorEmail()
-    {
-        loginSteps.clicarLoginPorEmail();
+    @Given("^usuario informa seus dados (.*) (.*)$")
+    public void usuarioInformaDados(String email, String senha) throws InterruptedException {
+        loginSteps.preencherCampoEmail(email);
+        loginSteps.preencherCampoSenha(senha);
     }
 
-    @And("^insira os dados de login$")
-    public void preencherDadosDeLogin()
-    {
-        loginSteps.preencherEmailField();
-        loginSteps.preencherPasswordField();
+    @When("^o usuario confirma login$")
+    public void confirmarLogin(){
+        loginSteps.clicarNoBotaoEntrar();
     }
 
-    @When("^clica em login$")
-    public void clicarEmLogIn()
-    {
-        loginSteps.clicarLogInButton();
+    @Then("^o sistema efetua o login (.*)$")
+    public void validarLoginNoSistema(String nome){
+        mainSteps.clicarNoBotaoPerfil();
+        Assert.assertEquals(meuPerfilSteps.retornaNomeUsuario().toLowerCase(), nome);
     }
 
 }
