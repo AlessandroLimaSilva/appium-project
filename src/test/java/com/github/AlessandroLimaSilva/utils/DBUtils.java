@@ -10,13 +10,15 @@ public class DBUtils {
 
     public DBUtils(){}
 
-    public void dataInsert(String insert, String dado) throws Exception {
+    public void dataInsert(String insert, String dadoUm, String dadoDois, String dadoTres) throws Exception {
         try{
             DBFactory dbFactory = new DBFactory();
             PreparedStatement pst =
                     dbFactory.getConnection().prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 
-            pst.setString(1, dado);
+            pst.setString(1, dadoUm);
+            pst.setString(2,dadoDois);
+            pst.setString(2, dadoTres);
             pst.executeUpdate();
             dbFactory.transactionConfirm();
             pst.close();

@@ -78,6 +78,4 @@ public class DBFactory {
         }
     }
 
-    public Statement createStatement() {
-    }
 }
