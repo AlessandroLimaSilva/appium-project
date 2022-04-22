@@ -1,11 +1,14 @@
 package com.github.AlessandroLimaSilva.stepdefinitions;
 
+import com.github.AlessandroLimaSilva.enums.Usuario;
 import com.github.AlessandroLimaSilva.steps.LoginSteps;
 import com.github.AlessandroLimaSilva.steps.MainSteps;
 import com.github.AlessandroLimaSilva.steps.MeuPerfilSteps;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
 
@@ -35,4 +38,22 @@ public class LoginStepDefinitions {
         Assert.assertEquals(meuPerfilSteps.retornaNomeUsuario().toLowerCase(), nome);
     }
 
+    @Given("^usuario possui os dados (.*) (.*) (.*)$")
+    public void usuarioPossuiOsDadosEmailSenhaNome(String email, String senha, String nome) {
+        Serenity.setSessionVariable(Usuario.EMAIL).to(email);
+        Serenity.setSessionVariable(Usuario.SENHA).to(senha);
+        Serenity.setSessionVariable(Usuario.NOME).to(nome);
+    }
+
+    @And("^o usuario informa os dados$")
+    public void UsuarioInformaOsDados() throws InterruptedException {
+        loginSteps.preencherCampoEmail((String) Serenity.sessionVariableCalled(Usuario.EMAIL));
+        loginSteps.preencherCampoSenha((String) Serenity.sessionVariableCalled(Usuario.SENHA));
+    }
+
+    @Then("o sistema efetua o login")
+    public void SistemaEfetuaOLogin() {
+        mainSteps.clicarNoBotaoPerfil();
+        Assert.assertEquals(meuPerfilSteps.retornaNomeUsuario().toLowerCase(), (String) Serenity.sessionVariableCalled(Usuario.NOME));
+    }
 }
