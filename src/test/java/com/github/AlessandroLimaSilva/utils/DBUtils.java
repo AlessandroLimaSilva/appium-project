@@ -51,9 +51,10 @@ public class DBUtils {
 
     }
 
-    public static ArrayList<String> getQueryResult(String query){
+    public ArrayList<String> getQueryResult(String query) throws Exception {
+
         ArrayList<String> arrayList = null;
-        DBFactory connection = null;
+        DBFactory connection = new DBFactory();
         Statement stmt = null;
 
         try {
@@ -96,12 +97,11 @@ public class DBUtils {
         return arrayList;
     }
 
-    public static void executeQuery(String query){
-        DBFactory connection = null;
+    public void executeQuery(String query) throws Exception {
+        DBFactory connection = new DBFactory();
         Statement stmt = null;
 
         try {
-
 
             stmt = connection.getConnection().createStatement();
             stmt.executeQuery(query);
