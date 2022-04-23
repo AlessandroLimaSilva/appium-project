@@ -38,16 +38,16 @@ public class LoginStepDefinitions {
         Assert.assertEquals(meuPerfilSteps.retornaNomeUsuario().toLowerCase(), nome);
     }
 
-    @Given("^usuario possui os dados (.*) (.*) (.*)$")
+    @Given("^possui dados (.*) (.*) (.*)$")
     public void usuarioPossuiOsDadosEmailSenhaNome(String email, String senha, String nome) {
         Serenity.setSessionVariable(Usuario.EMAIL).to(email);
         Serenity.setSessionVariable(Usuario.SENHA).to(senha);
         Serenity.setSessionVariable(Usuario.NOME).to(nome);
     }
 
-    @And("^o usuario informa os dados$")
+    @And("^informa dados$")
     public void UsuarioInformaOsDados() throws InterruptedException {
-        loginSteps.preencherCampoEmail((String) Serenity.sessionVariableCalled(Usuario.EMAIL));
+        loginSteps.preencherCampoEmail((String) Serenity.sessionVariableCalled(Usuario.EMAIL).toString());
         loginSteps.preencherCampoSenha((String) Serenity.sessionVariableCalled(Usuario.SENHA));
     }
 
