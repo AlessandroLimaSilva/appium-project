@@ -8,6 +8,11 @@ public class MainSteps extends ScenarioSteps {
 
     MainPage mainPage;
 
+    @Step("seleciona login")
+    public void selecionarLogin(){
+        mainPage.clicarLoginButton();
+    }
+
     @Step("efetua click no botao perfil")
     public void clicarNoBotaoPerfil(){
         mainPage.clicarPerfilButtonPage();

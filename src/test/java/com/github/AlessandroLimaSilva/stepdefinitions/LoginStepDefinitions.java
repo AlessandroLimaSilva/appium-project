@@ -21,7 +21,12 @@ public class LoginStepDefinitions {
     @Steps
     MeuPerfilSteps meuPerfilSteps;
 
-    @Given("^usuario informa seus dados (.*) (.*)$")
+    @Given("^que usuario seleciona login$")
+    public void usuarioSelecionaLogin(){
+        mainSteps.selecionarLogin();
+    }
+
+    @And("^usuario informa seus dados (.*) (.*)$")
     public void usuarioInformaDados(String email, String senha) throws InterruptedException {
         loginSteps.preencherCampoEmail(email);
         loginSteps.preencherCampoSenha(senha);

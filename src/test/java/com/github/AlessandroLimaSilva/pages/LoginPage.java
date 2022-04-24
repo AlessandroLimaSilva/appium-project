@@ -10,10 +10,6 @@ import org.openqa.selenium.WebElement;
 public class LoginPage extends PageBase {
 
     @iOSXCUITFindBy(xpath = "")
-    @AndroidFindBy(xpath = "//android.widget.Button[@text='Login']")
-    protected WebElement loginButton;
-
-    @iOSXCUITFindBy(xpath = "")
     @AndroidFindBy(xpath = "//android.widget.EditText[@text='']")
     protected WebElement emailTextField;
 

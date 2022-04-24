@@ -9,11 +9,20 @@ import org.openqa.selenium.WebElement;
 public class MainPage extends PageBase {
 
     @iOSXCUITFindBy(xpath = "")
+    @AndroidFindBy(xpath = "//android.widget.Button[@text='Login']")
+    protected WebElement loginButton;
+
+    @iOSXCUITFindBy(xpath = "")
     @AndroidFindBy(xpath = "//*[@class='android.widget.TextView' and @text='Perfil']")
     protected WebElement perfilButton;
 
     public MainPage(WebDriver driver) {
         super(driver);
+    }
+
+    public void clicarLoginButton(){
+        waitForElement(loginButton);
+        click(loginButton);
     }
 
     public void clicarPerfilButtonPage(){

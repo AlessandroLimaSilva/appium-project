@@ -4,7 +4,8 @@ Feature: Login no crowdtest app
   #Exemplo padrão de Scenario Outline
   @realizar_login_por_email @automatizado
   Scenario Outline: Realizar Login
-    Given usuario informa seus dados <email> <senha>
+    Given que usuario seleciona login
+    And usuario informa seus dados <email> <senha>
     When o usuario confirma login
     Then o sistema efetua o login <nome>
     Examples:
