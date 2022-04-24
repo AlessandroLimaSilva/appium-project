@@ -23,5 +23,9 @@ public class LoginSteps extends ScenarioSteps {
         loginPage.clicarEntrarButtonPage();
     }
 
+    @Step("Clicar no botao cadastre-se")
+    public void clicarNoBotaoCadastreSe(){
+        loginPage.clicarCadastreSeButton();
+    }
 
 }
