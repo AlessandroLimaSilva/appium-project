@@ -1,27 +1,36 @@
 package com.github.AlessandroLimaSilva.pages;
 
-public class CadastroPage extends PageBase{
+import com.github.AlessandroLimaSilva.bases.PageBase;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class CadastroPage extends PageBase {
 
     @AndroidFindBy(xpath = "(//android.widget.EditText[@text=''])[1]")
-    protected primeiroNomeTextField;
+    protected WebElement primeiroNomeTextField;
 
     @AndroidFindBy(xpath = "(//android.widget.EditText[@text=''])[2]")
-    protected sobrenomeTextField;
+    protected WebElement sobrenomeTextField;
 
     @AndroidFindBy(xpath = "(//android.widget.EditText[@text=''])[3]")
-    protected cpfTextField;
+    protected WebElement cpfTextField;
 
     @AndroidFindBy(xpath = "(//android.widget.EditText[@text=''])[4]")
-    protected nomeDeUsuario;
+    protected WebElement nomeUsuarioTextField;
 
     @AndroidFindBy(xpath = "(//android.widget.EditText[@text=''])[5]")
-    protected emailTextField;
+    protected WebElement emailTextField;
 
     @AndroidFindBy(xpath = "(//android.widget.EditText[@text=''])[6]")
-    protected senhaTextField;
+    protected WebElement senhaTextField;
 
     @AndroidFindBy(xpath = "//android.widget.Button[@text='PRÓXIMA ETAPA']")
-    protected proximaEtapaButton;
+    protected WebElement proximaEtapaButton;
+
+    public CadastroPage(WebDriver driver) {
+        super(driver);
+    }
 
     public void preencherPrimeiroNomeTextField(String text){
         waitForElement(primeiroNomeTextField);
@@ -39,8 +48,8 @@ public class CadastroPage extends PageBase{
     }
 
     public void preencherNomeDeUsuarioTextField(String text){
-        waitForElement(nomeDeUsuarioTextField);
-        sendKeys(nomeDeUsuarioTextField, text);
+        waitForElement(nomeUsuarioTextField);
+        sendKeys(nomeUsuarioTextField, text);
     }
 
     public void preencherEmailTextField(String text){

@@ -1,6 +1,12 @@
 package com.github.AlessandroLimaSilva.pages;
 
-public class CadastrarDispositivoPage {
+import com.github.AlessandroLimaSilva.bases.PageBase;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class CadastrarDispositivoPage extends PageBase {
 
     @AndroidFindBy(xpath = "(//*[contains(@text,'')]//self::android.widget.Button)[1]")
     protected WebElement marcaButton;
@@ -11,17 +17,21 @@ public class CadastrarDispositivoPage {
     @AndroidFindBy(xpath = "(//*[contains(@text,'')]//self::android.widget.Button)[3]")
     protected WebElement sistemaOperacionalButton;
 
+    public CadastrarDispositivoPage(WebDriver driver) {
+        super(driver);
+    }
+
     //Xpath dinamico so trocar o nome
     @AndroidFindBy(xpath = "//*[contains(@text,'Acer')]//self::android.widget.Button")
-    protected WebElement marcaSelecionadaButton()
+    protected WebElement selecionarMarcaButton;
 
     //Xpath dinamico so trocar o nome
     @AndroidFindBy(xpath = "//android.widget.Button[@text='Asus']")
-    protected WebElement modeloSelecionadoButton()
+    protected WebElement selecionarModeloButton;
 
     //Xpath dinamico so trocar o nome
     @AndroidFindBy(xpath = "//android.widget.Button[@text='Android 1.5 Cupcake']")
-    protected WebElement modeloSelecionadoButton()
+    protected WebElement selecionarSistemaOperacionalButton;
 
     @AndroidFindBy(xpath = "//android.widget.Button[@text='FINALIZAR']")
     protected WebElement finalizarButton;
@@ -46,21 +56,21 @@ public class CadastrarDispositivoPage {
 
     public void selecionarTipoMarcaButton(String marca){
         String path = "//android.widget.Button[@text='"+marca+"']";
-        protected WebElement tipoMarca = path;
+        WebElement tipoMarca = driver.findElement(By.xpath(path));
         waitForElement(tipoMarca);
         click(tipoMarca);
     }
 
     public void selecionarTipoModeloButton(String modelo){
         String path = "//android.widget.Button[@text='"+modelo+"']";
-        protected WebElement tipoModelo = path;
+        WebElement tipoModelo = driver.findElement(By.xpath(path));
         waitForElement(tipoModelo);
         click(tipoModelo);
     }
 
     public void selecionarTipoSistemaOperacionalButton(String sistemaOperacional){
         String path = "//android.widget.Button[@text='"+sistemaOperacional+"']";
-        protected WebElement tipoSistemaOperacional = path;
+        WebElement tipoSistemaOperacional = driver.findElement(By.xpath(path));
         waitForElement(tipoSistemaOperacional);
         click(tipoSistemaOperacional);
     }
@@ -72,7 +82,7 @@ public class CadastrarDispositivoPage {
 
     public void clickSairButton(){
         waitForElement(sairButton);
-        click(sairbutton);
+        click(sairButton);
     }
 
 }

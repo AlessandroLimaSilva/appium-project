@@ -29,4 +29,8 @@ public class MainPage extends PageBase {
         waitForElement(perfilButton);
         click(perfilButton);
     }
+
+    public void carregarApp(){
+        waitLoadingScreen(loginButton);
+    }
 }

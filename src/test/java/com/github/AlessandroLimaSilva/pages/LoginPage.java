@@ -29,7 +29,7 @@ public class LoginPage extends PageBase {
         super(driver);
     }
 
-    public void preencherEmailTextFieldPage(String email) throws InterruptedException {
+    public void preencherEmailTextFieldPage(String email) {
         waitForElement(emailTextField);
         sendKeys(emailTextField,email);
     }
