@@ -30,7 +30,7 @@ public class MainPage extends PageBase {
         click(perfilButton);
     }
 
-    public void carregarApp(){
-        waitLoadingScreen(loginButton);
+    public void waitLoadAPP(){
+        waitAPPLoad(loginButton);
     }
 }

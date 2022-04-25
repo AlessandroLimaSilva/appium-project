@@ -57,6 +57,10 @@ public class PageBase extends PageObject{
         }
     }
 
+    public void waitAPPLoad(WebElement element){
+        withTimeoutOf(Duration.ofSeconds(30)).waitFor(element).isDisplayed();
+    }
+
     public void waitForElement(WebElement element){
         wait.until(ExpectedConditions.visibilityOf(element));
         wait.until(ExpectedConditions.elementToBeClickable(element));
