@@ -22,4 +22,39 @@ public class CadastroPage extends PageBase{
 
     @AndroidFindBy(xpath = "//android.widget.Button[@text='PRÓXIMA ETAPA']")
     protected proximaEtapaButton;
+
+    public void preencherPrimeiroNomeTextField(String text){
+        waitForElement(primeiroNomeTextField);
+        sendKeys(primeiroNomeTextField, text);
+    }
+
+    public void preencherSobrenomeTextField(String text){
+        waitForElement(sobrenomeTextField);
+        sendKeys(sobrenomeTextField, text);
+    }
+
+    public void preencherCPFTextField(String text){
+        waitForElement(cpfTextField);
+        sendKeys(cpfTextField, text);
+    }
+
+    public void preencherNomeDeUsuarioTextField(String text){
+        waitForElement(nomeDeUsuarioTextField);
+        sendKeys(nomeDeUsuarioTextField, text);
+    }
+
+    public void preencherEmailTextField(String text){
+        waitForElement(emailTextField);
+        sendKeys(emailTextField, text);
+    }
+
+    public void preencherSenhaTextField(String text){
+        waitForElement(senhaTextField);
+        sendKeys(senhaTextField, text);
+    }
+
+    public void clicarProximaEtapaButton(){
+        waitForElement(proximaEtapaButton);
+        click(proximaEtapaButton);
+    }
 }
