@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class PageBase extends PageObject{
 
@@ -28,11 +29,24 @@ public class PageBase extends PageObject{
         super(driver);
         this.driver = driver;
         this.timeOutDefault = getWaitForTimeout().toMillis();
-        this.implicitTimeOutDefault = getImplicitWaitTimeout().getSeconds();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(getWaitForTimeout().getSeconds()));
+        this.implicitTimeOutDefault = getImplicitWaitTimeout().toMillis();
+        this.wait = new WebDriverWait(driver, Duration.ofMillis(timeOutDefault));
         this.javascriptExecutor = (JavascriptExecutor) driver;
     }
 
+
+    // Custom Actions
+    public void waitUntilPageReady() {
+        StopWatch timeOut = new StopWatch();
+        timeOut.start();
+
+        while (timeOut.getTime() <= this.timeOutDefault) {
+            if (javascriptExecutor.executeScript("return document.readyState").toString().equals("complete")) {
+                timeOut.stop();
+                break;
+            }
+        }
+    }
 
     //region Sincronização
     protected void waitLoadingScreen(WebElement element){
@@ -57,8 +71,8 @@ public class PageBase extends PageObject{
         }
     }
 
-    public void waitAPPLoad(WebElement element){
-        withTimeoutOf(Duration.ofSeconds(30)).waitFor(element).isDisplayed();
+    public void waitAPPLoad(){
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
     }
 
     public void waitForElement(WebElement element){

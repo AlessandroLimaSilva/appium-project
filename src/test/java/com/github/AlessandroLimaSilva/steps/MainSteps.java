@@ -10,7 +10,6 @@ public class MainSteps extends ScenarioSteps {
 
     @Step("seleciona login")
     public void selecionarLogin(){
-        mainPage.waitLoadAPP();
         mainPage.clicarLoginButton();
     }
 

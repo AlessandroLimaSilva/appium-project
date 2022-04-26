@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 public class MainPage extends PageBase {
 
     @iOSXCUITFindBy(xpath = "")
-    @AndroidFindBy(xpath = "//android.widget.Button[@text='Login']")
+    @AndroidFindBy(xpath = "//android.view.View[@text='Login']")
     protected WebElement loginButton;
 
     @iOSXCUITFindBy(xpath = "")
@@ -30,7 +30,4 @@ public class MainPage extends PageBase {
         click(perfilButton);
     }
 
-    public void waitLoadAPP(){
-        waitAPPLoad(loginButton);
-    }
 }
